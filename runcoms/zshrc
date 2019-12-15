@@ -1,3 +1,4 @@
+# -*- mode: shell-script; -*-
 #
 # Executes commands at the start of an interactive session.
 #
@@ -6,8 +7,82 @@
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${ZDOTDIR:-$HOME}/Development/.dotfiles/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/Development/.dotfiles/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
+
+# options
+#  http://kujira16.hateblo.jp/entry/2016/05/01/215542
+#
+setopt MAGIC_EQUAL_SUBST
+unsetopt CORRECT
+
+### modules/history/init.zsh ###
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=100000 # 10000 is too small
+SAVEHIST=100000
+
+### modules/directory/init.zsh ###
+setopt MULTIOS              # Write to multiple descriptors.
+setopt EXTENDED_GLOB        # Use extended globbing syntax.
+
+
+# zsh-completions, git-flow-completions
+#
+fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+
+# paths
+#
+path=(~/.anyenv/bin $path)
+path=($(brew --prefix)/opt/coreutils/libexec/gnubin $path)
+path=($(brew --prefix)/opt/sqlite/bin $path)
+path=($(brew --prefix)/opt/opencv@2/bin $path)
+path=($(brew --prefix)/opt/python@2/libexec/bin $path)
+
+# manpath
+#
+manpath=($manpath /usr/share/man)
+manpath=($(brew --prefix)/opt/coreutils/libexec/gnuman $manpath)
+
+# aliases
+#
+
+# look and Feel
+#
+
+### Ls Color ###
+_ZPREZTO_LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+# 色の設定
+if [ -d "$(brew --prefix)/opt/coreutils/libexec/gnubin" ] ; then
+    export LS_COLORS="$_ZPREZTO_LS_COLORS"
+    export ZLS_COLORS="$LS_COLORS"
+    alias ls='ls -G --color=auto'
+else
+    export LSCOLORS=Exfxcxdxbxegedabagacad
+    alias ls='ls -G'
+fi
+# 補完時の色の設定
+zstyle ':completion:*:default' list-colors ${(s.:.)_ZPREZTO_LS_COLORS}
+
+# unbind keys
+#
+stty susp undef
+stty stop undef
+
+# anyenv installed from [github](https://github.com/riywo/anyenv)
+eval "$(anyenv init -)"
+
+# auto-load
+#
+autoload -U compinit
+compinit -u
+autoload -U colors
+colors
+autoload -U zmv
+
+# tabtab source for yarn package
+# uninstall by removing these lines or running `tabtab uninstall yarn`
+[[ -f /Users/noriaki/Development/.dotfiles/.config/yarn/global/node_modules/tabtab/.completions/yarn.zsh ]] && . /Users/noriaki/Development/.dotfiles/.config/yarn/global/node_modules/tabtab/.completions/yarn.zsh

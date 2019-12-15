@@ -1,3 +1,4 @@
+# -*- mode: shell-script; -*-
 #
 # Executes commands at login pre-zshrc.
 #
@@ -17,7 +18,13 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
+alias emacsorg="$(brew --prefix)/bin/emacs"
+alias emacs='emacsclient -nw -a ""'
+
+# via: http://tarao.hatenablog.com/entry/20100404/1270385972
+alias ekill="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
+
+export EDITOR='emacs'
 export VISUAL='nano'
 export PAGER='less'
 
@@ -26,7 +33,7 @@ export PAGER='less'
 #
 
 if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
+  export LANG='ja_JP.UTF-8'
 fi
 
 #
