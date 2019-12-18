@@ -19,10 +19,10 @@ fi
 #
 
 alias emacsorg="$(brew --prefix)/bin/emacs"
-alias emacs='emacsclient -nw -a ""'
+alias e='emacsclient -nw -a ""'
 
-# via: http://tarao.hatenablog.com/entry/20100404/1270385972
-alias ekill="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
+# use Homebrew services
+alias ekill="brew services restart emacs"
 
 export EDITOR='emacs'
 export VISUAL='nano'
