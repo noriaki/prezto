@@ -33,6 +33,10 @@ setopt EXTENDED_GLOB        # Use extended globbing syntax.
 #
 fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fpath=($HOME/.config/zsh/completions $fpath)
+if [[ -s $HOME/.config/zsh/completions/git-flow-completion.zsh ]]; then
+  source $HOME/.config/zsh/completions/git-flow-completion.zsh
+fi
 
 # paths
 #
@@ -49,6 +53,9 @@ manpath=($(brew --prefix)/opt/coreutils/libexec/gnuman $manpath)
 
 # aliases
 #
+
+# hub: https://github.com/github/hub
+eval "$(hub alias -s)"
 
 # look and Feel
 #
