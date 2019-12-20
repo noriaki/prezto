@@ -19,7 +19,7 @@ fi
 #
 
 alias emacsorg="$(brew --prefix)/bin/emacs"
-alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
 
 # use Homebrew services
 alias ekill="brew services restart emacs"
