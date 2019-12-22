@@ -18,13 +18,25 @@ fi
 # Editors
 #
 
+function estart() {
+  if ! emacsclient -e 0 > /dev/null 2>&1; then
+    ({
+      cd
+      emacs --daemon
+      cd -
+    } > /dev/null 2>&1 & )
+  fi
+}
+estart # シェル起動時にEmacsデーモンも起動する
+
 alias emacsorg="$(brew --prefix)/bin/emacs"
 alias emacs='emacsclient -nw -a ""'
 
-# use Homebrew services
-alias ekill="brew services restart emacs"
+alias ekill="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
+alias estop='ekill'
+alias erestart='estop && estart'
 
-export EDITOR='emacs'
+export EDITOR='emacsclient -nw -a ""'
 export VISUAL='nano'
 export PAGER='less'
 
