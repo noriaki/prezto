@@ -53,6 +53,7 @@ manpath=($(brew --prefix)/opt/coreutils/libexec/gnuman $manpath)
 
 # aliases
 #
+alias diff='colordiff'
 
 # hub: https://github.com/github/hub
 eval "$(hub alias -s)"
